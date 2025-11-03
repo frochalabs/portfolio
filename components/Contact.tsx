@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function Contact() {
@@ -10,11 +10,6 @@ export default function Contact() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
-  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([])
-  const buttonRef = useRef<HTMLAnchorElement>(null)
-  
-  const whatsappMessage = encodeURIComponent('Olá, vi seu portfólio e gostaria de falar sobre automação.')
-  const whatsappLink = `https://api.whatsapp.com/send?phone=5511999999999&text=${whatsappMessage}`
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,25 +28,6 @@ export default function Contact() {
       ...formData,
       [e.target.name]: e.target.value,
     })
-  }
-
-  const createRipple = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!buttonRef.current) return
-    const rect = buttonRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    
-    const newRipple = {
-      id: Date.now(),
-      x,
-      y,
-    }
-    
-    setRipples((prev) => [...prev, newRipple])
-    
-    setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id))
-    }, 600)
   }
 
   const isValidEmail = (email: string) => {
@@ -87,63 +63,6 @@ export default function Contact() {
         >
           Vamos iniciar uma conversa sobre automação?
         </motion.p>
-
-        {/* CTA Primário - WhatsApp Menos Chamativo */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-12"
-        >
-          <a
-            ref={buttonRef}
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={createRipple}
-            className="cursor-interactive relative w-full block py-4 px-6 bg-[#000000] border border-[#888888] text-[#FFFFFF] font-normal rounded-lg transition-all text-center text-sm overflow-hidden hover:border-[#00FEFC] hover:bg-[#001a1a]"
-            style={{ position: 'relative' }}
-          >
-            {/* Ripple Effects */}
-            {ripples.map((ripple) => (
-              <motion.span
-                key={ripple.id}
-                className="absolute rounded-full bg-[#00FEFC] opacity-20"
-                initial={{
-                  left: ripple.x,
-                  top: ripple.y,
-                  width: 0,
-                  height: 0,
-                  translateX: '-50%',
-                  translateY: '-50%',
-                }}
-                animate={{
-                  width: 300,
-                  height: 300,
-                  opacity: 0,
-                }}
-                transition={{ duration: 0.6, ease: 'linear' }}
-              />
-            ))}
-            <span className="relative z-10 font-mono text-xs uppercase tracking-wider">
-              {'//'} Iniciar Conversa (WhatsApp)
-            </span>
-          </a>
-        </motion.div>
-
-        {/* Separador */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex items-center gap-4 mb-8"
-        >
-          <div className="flex-1 h-px bg-[#888888]"></div>
-          <span className="text-[#888888] text-xs font-mono uppercase tracking-wider">Ou, se preferir, envie um e-mail</span>
-          <div className="flex-1 h-px bg-[#888888]"></div>
-        </motion.div>
 
         {submitted ? (
           <motion.div

@@ -138,7 +138,7 @@ export default function Dilemma() {
                 transition={{ duration: 0.4, delay: 0.4 }}
                 className="text-xs font-mono text-[#888888] mb-8 uppercase tracking-wider"
               >
-                Templates e "Gambiarras"
+                Templates e &quot;Gambiarras&quot;
               </motion.p>
 
               {/* Lista - Entrada Sequencial */}
@@ -174,7 +174,7 @@ export default function Dilemma() {
                     }}
                     className="flex items-start gap-3 text-sm text-[#888888]"
                   >
-                    <span className="text-xs font-mono text-[#888888]">//</span>
+                    <span className="text-xs font-mono text-[#888888]">{'//'}</span>
                     <span className="leading-relaxed">{item.text}</span>
                   </motion.li>
                 ))}
@@ -251,7 +251,6 @@ export default function Dilemma() {
                 initial={{ opacity: 0, rotate: -180, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
                 className="mb-6 text-[#FFFFFF]"
                 animate={{
                   rotate: 360,
@@ -260,13 +259,6 @@ export default function Dilemma() {
                   duration: 20,
                   repeat: Infinity,
                   ease: 'linear',
-                }}
-                whileHover={{
-                  rotate: 360,
-                  transition: {
-                    duration: 5,
-                    ease: 'linear',
-                  },
                 }}
                 style={{
                   transformOrigin: 'center',

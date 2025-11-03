@@ -44,7 +44,7 @@ export default function SocialProof() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="cursor-interactive border border-[#888888] rounded-lg p-6"
             >
-              <p className="text-[#888888] mb-4 text-sm italic font-normal leading-relaxed">"{testimonial.quote}"</p>
+              <p className="text-[#888888] mb-4 text-sm italic font-normal leading-relaxed">&quot;{testimonial.quote}&quot;</p>
               <p className="text-[#888888] text-xs font-mono">— {testimonial.author}</p>
             </motion.div>
           ))}

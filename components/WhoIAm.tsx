@@ -7,11 +7,11 @@ import { useState, useEffect } from 'react'
 const socialLinks = [
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/rochalabs',
+    url: 'https://www.linkedin.com/in/fabianorocha-dev/',
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/binhorochatrybe',
+    url: 'https://github.com/frochalabs',
   },
   {
     name: 'Instagram',

@@ -30,14 +30,13 @@ Este portfólio apresenta o trabalho da RochaLabs em transformar operações emp
 5. **Transformação**: Benefícios da automação
 6. **Quem Sou**: Carrossel de fotos + manifesto pessoal
 7. **Projetos**: Timeline interativa de projetos
-8. **Contato**: Formulário e WhatsApp
+8. **Contato**: Formulário de e-mail
 
 ### Componentes Técnicos
 
 - **CustomCursor**: Cursor personalizado com glow effect
 - **ScrollProgress**: Barra de progresso de scroll
 - **SmoothScroll**: Navegação suave entre seções
-- **WhatsAppFAB**: Botão flutuante de contato direto
 - **Carrossel de Fotos**: Animação de hover reveal com 4 fotos
 
 ## 🛠️ Stack Tecnológico
@@ -73,8 +72,8 @@ Documentação completa em [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md):
 ## 🔗 Links
 
 - **Instagram**: [rochalabs.co](https://rochalabs.co)
-- **LinkedIn**: [linkedin.com/in/rochalabs](https://linkedin.com/in/rochalabs)
-- **GitHub**: [github.com/rochalabs](https://github.com/rochalabs)
+- **LinkedIn**: [Fabiano Rocha](https://www.linkedin.com/in/fabianorocha-dev/)
+- **GitHub**: [frochalabs](https://github.com/frochalabs)
 
 ---
 

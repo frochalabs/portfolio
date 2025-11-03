@@ -3,11 +3,11 @@
 const socialLinks = [
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/rochalabs',
+    url: 'https://www.linkedin.com/in/fabianorocha-dev/',
   },
   {
     name: 'GitHub',
-    url: 'https://github.com/rochalabs',
+    url: 'https://github.com/frochalabs',
   },
 ]
 
