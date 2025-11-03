@@ -1,5 +1,7 @@
 'use client'
 
+import { useLanguage } from '@/contexts/LanguageContext'
+
 const socialLinks = [
   {
     name: 'LinkedIn',
@@ -12,12 +14,14 @@ const socialLinks = [
 ]
 
 export default function Footer() {
+  const { t } = useLanguage()
+  
   return (
     <footer className="px-4 md:px-8 lg:px-16 py-8 bg-[#000000] border-t border-[#888888]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Esquerda: Copyright */}
         <p className="text-xs text-[#888888] font-mono">
-          © 2025 @rochalabs. Engenharia de Automação.
+          {t('footer.copyright')}
         </p>
 
         {/* Direita: Links de Redes Sociais */}

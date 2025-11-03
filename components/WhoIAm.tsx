@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const socialLinks = [
   {
@@ -19,38 +20,39 @@ const socialLinks = [
   },
 ]
 
-const photoTriggers = [
-  {
-    id: 'perfil_1.png',
-    label: 'Profissional',
-  },
-  {
-    id: 'perfil_2.png',
-    label: 'Foco',
-  },
-  {
-    id: 'perfil_3.png',
-    label: 'Estratégia',
-  },
-  {
-    id: 'perfil_4.png',
-    label: 'Visão',
-  },
-]
-
 export default function WhoIAm() {
+  const { t } = useLanguage()
   const [activePhoto, setActivePhoto] = useState('perfil_1.png')
+  
+  const photoTriggers = useMemo(() => [
+    {
+      id: 'perfil_1.png',
+      labelKey: 'about.photo.1',
+    },
+    {
+      id: 'perfil_2.png',
+      labelKey: 'about.photo.2',
+    },
+    {
+      id: 'perfil_3.png',
+      labelKey: 'about.photo.3',
+    },
+    {
+      id: 'perfil_4.png',
+      labelKey: 'about.photo.4',
+    },
+  ], [])
 
   // Auto-rotate photos
   useEffect(() => {
     const interval = setInterval(() => {
-      const currentIndex = photoTriggers.findIndex(t => t.id === activePhoto)
+      const currentIndex = photoTriggers.findIndex(trigger => trigger.id === activePhoto)
       const nextIndex = (currentIndex + 1) % photoTriggers.length
       setActivePhoto(photoTriggers[nextIndex].id)
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [activePhoto])
+  }, [activePhoto, photoTriggers])
 
   return (
     <motion.section
@@ -88,7 +90,7 @@ export default function WhoIAm() {
                 >
                   <Image
                     src={`/${trigger.id}`}
-                    alt={`Fabiano Rocha - ${trigger.label}`}
+                    alt={`Fabiano Rocha - ${t(trigger.labelKey)}`}
                     fill
                     className="object-cover"
                     priority={trigger.id === 'perfil_1.png'}
@@ -151,7 +153,7 @@ export default function WhoIAm() {
                     whileHover={{ opacity: 1, y: 0 }}
                     className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black border border-[#333333] rounded text-[0.7rem] text-white whitespace-nowrap pointer-events-none"
                   >
-                    {trigger.label}
+                    {t(trigger.labelKey)}
                   </motion.div>
                 </motion.button>
               ))}
@@ -177,7 +179,7 @@ export default function WhoIAm() {
               className="text-4xl md:text-5xl lg:text-6xl font-serif mb-8 text-[#FFFFFF] leading-tight"
               style={{ fontFamily: '"DM Serif Display", serif' }}
             >
-              Prazer, Fabiano. Engenheiro de Software.
+              {t('about.title')}
             </motion.h2>
 
             {/* Sotaque Elétrico - Linha Ciano */}
@@ -201,10 +203,10 @@ export default function WhoIAm() {
               className="space-y-6 mb-12"
             >
               <p className="text-sm md:text-base text-[#FFFFFF] font-normal leading-relaxed">
-                Atualmente, desenvolvo soluções de automação em uma das maiores empresas de serviços financeiros do país, lidando diariamente com sistemas críticos e processos de larga escala.
+                {t('about.text.1')}
               </p>
               <p className="text-sm md:text-base text-[#FFFFFF] font-normal leading-relaxed">
-                Minha especialidade é aplicar essa mesma engenharia de nível corporativo no seu negócio. Eu não uso templates; eu mergulho no seu contexto, arquiteto a lógica e construo soluções de automação customizadas (com Python, N8N e IA) que são seguras, precisas e prontas para escalar.
+                {t('about.text.2')}
               </p>
             </motion.div>
 

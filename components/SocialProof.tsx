@@ -1,19 +1,20 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
-const testimonials = [
-  {
-    quote: 'Automatizamos nosso atendimento e aumentamos a conversão de leads em 40% em 30 dias.',
-    author: 'CEO, Agência Digital',
-  },
-  {
-    quote: 'Conseguimos escalar de 10 para 50 clientes sem aumentar a equipe. A automação mudou tudo.',
-    author: 'Diretor de Operações',
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SocialProof() {
+  const { t } = useLanguage()
+  
+  const testimonials = [
+    {
+      quoteKey: 'socialproof.testimonial.1',
+    },
+    {
+      quoteKey: 'socialproof.testimonial.2',
+    },
+  ]
+
   return (
     <motion.section
       id="social-proof"
@@ -32,7 +33,7 @@ export default function SocialProof() {
           className="text-3xl md:text-4xl lg:text-5xl font-serif text-center mb-12 text-[#FFFFFF] leading-tight"
           style={{ fontFamily: '"DM Serif Display", serif' }}
         >
-          Você não é o primeiro a transformar o negócio com automação
+          {t('socialproof.title')}
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => (
@@ -44,8 +45,7 @@ export default function SocialProof() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="cursor-interactive border border-[#888888] rounded-lg p-6"
             >
-              <p className="text-[#888888] mb-4 text-sm italic font-normal leading-relaxed">&quot;{testimonial.quote}&quot;</p>
-              <p className="text-[#888888] text-xs font-mono">— {testimonial.author}</p>
+              <p className="text-[#888888] mb-4 text-sm italic font-normal leading-relaxed">&quot;{t(testimonial.quoteKey)}&quot;</p>
             </motion.div>
           ))}
         </div>

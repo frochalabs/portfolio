@@ -1,10 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 import CodeBlock from './CodeBlock'
 import LogoGrid from './LogoGrid'
 
 export default function Differential() {
+  const { t } = useLanguage()
+  
   return (
     <motion.section
       id="differential"
@@ -23,7 +26,7 @@ export default function Differential() {
           className="text-4xl md:text-5xl lg:text-6xl font-serif mb-4 text-center text-[#FFFFFF] leading-tight"
           style={{ fontFamily: '"DM Serif Display", serif' }}
         >
-          Cada solução é construída do zero, para você. 
+          {t('differential.title')}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -32,7 +35,7 @@ export default function Differential() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm md:text-base text-[#888888] text-center mb-12 font-mono uppercase tracking-wider"
         >
-          Eu construo a arquitetura customizada que sua escala exige, linha por linha.
+          {t('differential.subtitle')}
         </motion.p>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -46,20 +49,20 @@ export default function Differential() {
           >
             <div className="border border-[#888888] rounded-lg p-8">
             <p className="text-sm text-[#888888] leading-relaxed mb-6 font-normal">
-              Todo o trabalho é customizado, feito sob medida por um desenvolvedor que domina bots, IA e integração de sistemas. Isso garante soluções limpas, escaláveis e adaptáveis às suas necessidades.
+              {t('differential.text')}
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <span className="text-[#00FEFC] text-sm font-mono">[✓]</span>
-                <span className="text-sm text-[#888888] font-mono">Soluções limpas e escaláveis</span>
+                <span className="text-sm text-[#888888] font-mono">{t('differential.1')}</span>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-[#00FEFC] text-sm font-mono">[✓]</span>
-                <span className="text-sm text-[#888888] font-mono">100% adaptável às suas necessidades</span>
+                <span className="text-sm text-[#888888] font-mono">{t('differential.2')}</span>
               </div>
               <div className="flex items-start gap-3">
                 <span className="text-[#00FEFC] text-sm font-mono">[✓]</span>
-                <span className="text-sm text-[#888888] font-mono">Feito por desenvolvedor, não templates</span>
+                <span className="text-sm text-[#888888] font-mono">{t('differential.3')}</span>
               </div>
             </div>
             </div>

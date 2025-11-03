@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Componentes de Ícones SVG
 const FireIcon = ({ className }: { className?: string }) => (
@@ -34,34 +35,6 @@ const MobileIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const problems = [
-  {
-    icon: FireIcon,
-    title: 'Equipe apagando incêndios?',
-    description: 'Tarefas repetitivas estão consumindo as horas que sua equipe deveria usar para crescer o negócio.',
-  },
-  {
-    icon: ClockIcon,
-    title: 'Leads esperando horas por resposta?',
-    description: 'Enquanto você tenta acompanhar tudo sozinho, oportunidades fogem para concorrentes mais ágeis.',
-  },
-  {
-    icon: ChartIcon,
-    title: 'Relatórios que atrasam decisões?',
-    description: 'Análises demoradas e imprecisas fazem você tomar decisões com dados desatualizados.',
-  },
-  {
-    icon: PlugIcon,
-    title: 'Sistemas que não conversam?',
-    description: 'CRM, WhatsApp, Instagram e Google Sheets isolados. Informações espalhadas dificultam a gestão.',
-  },
-  {
-    icon: MobileIcon,
-    title: 'Conteúdo replicado à mão?',
-    description: 'Publicar o mesmo conteúdo em várias plataformas uma por uma desperdiça tempo e energia.',
-  },
-]
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -92,6 +65,36 @@ const itemVariants = {
 }
 
 export default function Problems() {
+  const { t } = useLanguage()
+  
+  const problems = [
+    {
+      icon: FireIcon,
+      titleKey: 'problems.1.title',
+      descKey: 'problems.1.desc',
+    },
+    {
+      icon: ClockIcon,
+      titleKey: 'problems.2.title',
+      descKey: 'problems.2.desc',
+    },
+    {
+      icon: ChartIcon,
+      titleKey: 'problems.3.title',
+      descKey: 'problems.3.desc',
+    },
+    {
+      icon: PlugIcon,
+      titleKey: 'problems.4.title',
+      descKey: 'problems.4.desc',
+    },
+    {
+      icon: MobileIcon,
+      titleKey: 'problems.5.title',
+      descKey: 'problems.5.desc',
+    },
+  ]
+
   return (
     <motion.section
       id="problems"
@@ -114,10 +117,10 @@ export default function Problems() {
             style={{ fontFamily: '"DM Serif Display", serif' }}
             className="text-4xl md:text-5xl lg:text-6xl font-serif mb-4 text-[#FFFFFF] leading-tight"
           >
-            Seu negócio está preso em processos lentos?
+            {t('problems.title')}
           </h2>
           <p className="text-xs text-[#888888] font-mono uppercase tracking-wider">
-            Problemas comuns que consomem seu lucro
+            {t('problems.subtitle')}
           </p>
         </motion.div>
         
@@ -171,8 +174,8 @@ export default function Problems() {
                 >
                   <IconComponent className="w-8 h-8" />
                 </motion.div>
-                <h3 className="text-base font-semibold mb-3 text-[#FFFFFF]">{problem.title}</h3>
-                <p className="text-sm text-[#888888] font-normal leading-relaxed flex-grow">{problem.description}</p>
+                <h3 className="text-base font-semibold mb-3 text-[#FFFFFF]">{t(problem.titleKey)}</h3>
+                <p className="text-sm text-[#888888] font-normal leading-relaxed flex-grow">{t(problem.descKey)}</p>
               </motion.div>
             )
           })}

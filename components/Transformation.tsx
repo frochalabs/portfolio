@@ -1,24 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
-const benefits = [
-  {
-    icon: '⚡',
-    title: 'Menos retrabalho',
-    description: 'Elimine tarefas repetitivas e foque no que realmente importa.',
-  },
-  {
-    icon: '🚀',
-    title: 'Mais velocidade',
-    description: 'Processos que levavam horas agora acontecem em minutos.',
-  },
-  {
-    icon: '✅',
-    title: 'Entregas consistentes',
-    description: 'Resultados previsíveis e qualidade sempre alta.',
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -42,6 +25,26 @@ const itemVariants = {
 }
 
 export default function Transformation() {
+  const { t } = useLanguage()
+  
+  const benefits = [
+    {
+      icon: '⚡',
+      titleKey: 'transformation.benefit.1.title',
+      descKey: 'transformation.benefit.1.desc',
+    },
+    {
+      icon: '🚀',
+      titleKey: 'transformation.benefit.2.title',
+      descKey: 'transformation.benefit.2.desc',
+    },
+    {
+      icon: '✅',
+      titleKey: 'transformation.benefit.3.title',
+      descKey: 'transformation.benefit.3.desc',
+    },
+  ]
+
   return (
     <motion.section
       id="transformation"
@@ -60,7 +63,7 @@ export default function Transformation() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-6xl font-bold text-center mb-8"
         >
-          Resultados que você vai sentir desde o primeiro dia
+          {t('transformation.title')}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -69,9 +72,9 @@ export default function Transformation() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl text-gray-300 text-center mb-16 leading-relaxed"
         >
-          Com automação inteligente e integração de sistemas, suas tarefas rotineiras se tornam processos instantâneos.
+          {t('transformation.text')}
           <br />
-          <span className="text-white font-semibold">Resultado: menos retrabalho, mais velocidade e entregas consistentes.</span>
+          <span className="text-white font-semibold">{t('transformation.result')}</span>
         </motion.p>
         <motion.div
           variants={containerVariants}
@@ -91,10 +94,10 @@ export default function Transformation() {
               <div className="relative z-10">
                 <div className="text-5xl mb-4">{benefit.icon}</div>
                 <h3 className="text-2xl font-bold mb-4 group-hover:text-white transition-colors">
-                  {benefit.title}
+                  {t(benefit.titleKey)}
                 </h3>
                 <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
-                  {benefit.description}
+                  {t(benefit.descKey)}
                 </p>
               </div>
             </motion.div>

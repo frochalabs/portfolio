@@ -3,6 +3,7 @@ import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll'
 import PageInit from '@/components/PageInit'
 import CustomCursor from '@/components/CustomCursor'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
   title: 'Portfolio',
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="cursor-none">
-        <PageInit />
-        <SmoothScroll />
-        <CustomCursor />
-        {children}
+        <LanguageProvider>
+          <PageInit />
+          <SmoothScroll />
+          <CustomCursor />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

@@ -1,21 +1,29 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const navItems = [
-  { name: 'Início', href: '#hero' },
-  { name: 'Problemas', href: '#problems' },
-  { name: 'O Dilema', href: '#dilemma' },
-  { name: 'Diferencial', href: '#differential' },
-  { name: 'Quem sou eu?', href: '#about' },
-  { name: 'Projetos', href: '#projects' },
-  { name: 'Contato', href: '#contact' },
-]
+interface NavItem {
+  name: string
+  href: string
+  key: string
+}
 
 export default function Header() {
+  const { language, setLanguage, t } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  
+  const navItems: NavItem[] = useMemo(() => [
+    { name: t('nav.home'), href: '#hero', key: 'home' },
+    { name: t('nav.problems'), href: '#problems', key: 'problems' },
+    { name: t('nav.dilemma'), href: '#dilemma', key: 'dilemma' },
+    { name: t('nav.differential'), href: '#differential', key: 'differential' },
+    { name: t('nav.about'), href: '#about', key: 'about' },
+    { name: t('nav.projects'), href: '#projects', key: 'projects' },
+    { name: t('nav.contact'), href: '#contact', key: 'contact' },
+  ], [t])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +46,7 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [navItems])
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
@@ -72,43 +80,74 @@ export default function Header() {
           >
             @rochalabs
           </motion.div>
-          <ul className="hidden md:flex items-center gap-6">
-            {navItems.map((item, index) => {
-              const sectionId = item.href.replace('#', '')
-              const isActive = activeSection === sectionId
-              
-              return (
-                <li key={index}>
-                  <motion.a
-                    href={item.href}
-                    onClick={(e) => handleClick(e, item.href)}
-                    className={`cursor-interactive relative px-2 py-1 text-xs font-normal transition-colors ${
-                      isActive 
-                        ? 'text-[#FFFFFF]'
-                        : 'text-[#888888] hover:text-[#FFFFFF]'
-                    }`}
-                    whileHover={{ y: -1 }}
-                    whileTap={{ y: 0 }}
-                  >
-                    {item.name}
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeSection"
-                        className="absolute bottom-0 left-0 right-0 h-px bg-[#00FEFC]"
-                        initial={false}
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                        style={{
-                          boxShadow: '0 0 8px rgba(0, 254, 252, 0.6)',
-                        }}
-                      />
-                    )}
-                  </motion.a>
-                </li>
-              )
-            })}
-          </ul>
+          <div className="hidden md:flex items-center gap-6">
+            <ul className="flex items-center gap-6">
+              {navItems.map((item, index) => {
+                const sectionId = item.href.replace('#', '')
+                const isActive = activeSection === sectionId
+                
+                return (
+                  <li key={index}>
+                    <motion.a
+                      href={item.href}
+                      onClick={(e) => handleClick(e, item.href)}
+                      className={`cursor-interactive relative px-2 py-1 text-xs font-normal transition-colors ${
+                        isActive 
+                          ? 'text-[#FFFFFF]'
+                          : 'text-[#888888] hover:text-[#FFFFFF]'
+                      }`}
+                      whileHover={{ y: -1 }}
+                      whileTap={{ y: 0 }}
+                    >
+                      {item.name}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeSection"
+                          className="absolute bottom-0 left-0 right-0 h-px bg-[#00FEFC]"
+                          initial={false}
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          style={{
+                            boxShadow: '0 0 8px rgba(0, 254, 252, 0.6)',
+                          }}
+                        />
+                      )}
+                    </motion.a>
+                  </li>
+                )
+              })}
+            </ul>
+
+            {/* Idioma integrado */}
+            <div className="flex items-center gap-0.5 ml-6 pl-6 border-l border-[#333333]">
+              <motion.button
+                onClick={() => setLanguage('pt')}
+                className={`px-2 py-0.5 text-[0.7rem] font-mono transition-all border-none bg-transparent cursor-pointer rounded-sm uppercase ${
+                  language === 'pt'
+                    ? 'text-[#00FEFC] bg-[rgba(0,254,252,0.1)]'
+                    : 'text-[#666666] hover:text-[#FFFFFF]'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                PT
+              </motion.button>
+              <span className="text-[#333333] text-[0.7rem]">/</span>
+              <motion.button
+                onClick={() => setLanguage('en')}
+                className={`px-2 py-0.5 text-[0.7rem] font-mono transition-all border-none bg-transparent cursor-pointer rounded-sm uppercase ${
+                  language === 'en'
+                    ? 'text-[#00FEFC] bg-[rgba(0,254,252,0.1)]'
+                    : 'text-[#666666] hover:text-[#FFFFFF]'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                EN
+              </motion.button>
+            </div>
+          </div>
           <div className="md:hidden">
-            <MenuMobile />
+            <MenuMobile navItems={navItems} />
           </div>
         </div>
       </nav>
@@ -116,7 +155,7 @@ export default function Header() {
   )
 }
 
-function MenuMobile() {
+function MenuMobile({ navItems }: { navItems: NavItem[] }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

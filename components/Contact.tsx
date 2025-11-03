@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Contact() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,7 +54,7 @@ export default function Contact() {
           className="text-4xl md:text-5xl lg:text-6xl font-serif text-center mb-6 text-[#FFFFFF] leading-tight"
           style={{ fontFamily: '"DM Serif Display", serif' }}
         >
-          Sua vez de responder.
+          {t('contact.title')}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -61,7 +63,7 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center text-[#888888] mb-12 text-xs font-mono uppercase tracking-wider"
         >
-          Vamos iniciar uma conversa sobre automação?
+          {t('contact.subtitle')}
         </motion.p>
 
         {submitted ? (
@@ -80,10 +82,10 @@ export default function Contact() {
               <span className="text-[#000000] text-2xl font-bold">✓</span>
             </motion.div>
             <h3 className="text-xl font-semibold mb-4 text-[#FFFFFF] status-message status-success">
-              Mensagem enviada!
+              {t('contact.success.title')}
             </h3>
             <p className="text-sm text-[#888888] font-mono">
-              Recebi sua mensagem. Vou analisar seu cenário e entrar em contato em breve.
+              {t('contact.success.desc')}
             </p>
           </motion.div>
         ) : (
@@ -104,7 +106,7 @@ export default function Contact() {
                 className="relative"
               >
                 <label htmlFor="name" className="block mb-2 text-[#888888] text-xs font-mono uppercase tracking-wider">
-                  Nome completo
+                  {t('contact.form.name')}
                 </label>
                 <input
                   type="text"
@@ -117,7 +119,7 @@ export default function Contact() {
                   style={{
                     boxShadow: formData.name ? '0 0 0 2px rgba(0, 254, 252, 0.1)' : 'none',
                   }}
-                  placeholder="Seu nome completo"
+                  placeholder={t('contact.form.name.placeholder')}
                 />
                 {formData.name && (
                   <motion.span
@@ -138,7 +140,7 @@ export default function Contact() {
                 className="relative"
               >
                 <label htmlFor="email" className="block mb-2 text-[#888888] text-xs font-mono uppercase tracking-wider">
-                  E-mail
+                  {t('contact.form.email')}
                 </label>
                 <input
                   type="email"
@@ -157,7 +159,7 @@ export default function Contact() {
                   style={{
                     boxShadow: formData.email && isValidEmail(formData.email) ? '0 0 0 2px rgba(0, 254, 252, 0.1)' : 'none',
                   }}
-                  placeholder="seu@email.com"
+                  placeholder={t('contact.form.email.placeholder')}
                 />
                 {formData.email && isValidEmail(formData.email) && (
                   <motion.span
@@ -178,7 +180,7 @@ export default function Contact() {
                 className="relative"
               >
                 <label htmlFor="message" className="block mb-2 text-[#888888] text-xs font-mono uppercase tracking-wider">
-                  Mensagem
+                  {t('contact.form.message')}
                 </label>
                 <textarea
                   id="message"
@@ -191,7 +193,7 @@ export default function Contact() {
                   style={{
                     boxShadow: formData.message ? '0 0 0 2px rgba(0, 254, 252, 0.1)' : 'none',
                   }}
-                  placeholder="Meu maior gargalo hoje é..."
+                  placeholder={t('contact.form.message.placeholder')}
                 />
               </motion.div>
 
@@ -201,7 +203,7 @@ export default function Contact() {
                 whileTap={{ scale: 0.98 }}
                 className="cursor-interactive w-full py-4 bg-[#000000] border border-[#888888] text-[#FFFFFF] font-mono font-semibold rounded-lg transition-all text-sm hover:border-[#00FEFC] code-hover"
               >
-                Enviar E-mail
+                {t('contact.form.submit')}
               </motion.button>
             </motion.form>
           </>

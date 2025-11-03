@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Componentes de Ícones SVG
 const DocumentIcon = ({ className }: { className?: string }) => (
@@ -22,31 +23,21 @@ const CheckIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const easyPath = [
-  {
-    text: 'Genérico: Não se adapta 100% ao seu fluxo.',
-  },
-  {
-    text: 'Quebra fácil: Soluções temporárias.',
-  },
-  {
-    text: 'Refém da plataforma: Sem controle total.',
-  },
-]
-
-const strategicPath = [
-  {
-    text: 'Sob Medida: Desenhado para o seu processo.',
-  },
-  {
-    text: 'Escalável: Feito para durar e crescer.',
-  },
-  {
-    text: 'Flexibilidade Total: Você tem controle completo.',
-  },
-]
-
 export default function Dilemma() {
+  const { t } = useLanguage()
+  
+  const easyPath = [
+    { key: 'dilemma.easy.1' },
+    { key: 'dilemma.easy.2' },
+    { key: 'dilemma.easy.3' },
+  ]
+
+  const strategicPath = [
+    { key: 'dilemma.strategic.1' },
+    { key: 'dilemma.strategic.2' },
+    { key: 'dilemma.strategic.3' },
+  ]
+
   return (
     <motion.section
       id="dilemma"
@@ -69,10 +60,10 @@ export default function Dilemma() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-[#FFFFFF] leading-tight tracking-tight"
             style={{ fontFamily: '"DM Serif Display", serif' }}
           >
-            Dois Caminhos, Uma Escolha
+            {t('dilemma.title')}
           </h2>
           <p className="text-xs md:text-sm text-[#888888] max-w-2xl mx-auto leading-relaxed font-mono uppercase tracking-wider">
-            O futuro do seu negócio depende da decisão que você toma agora.
+            {t('dilemma.subtitle')}
           </p>
         </motion.div>
 
@@ -127,7 +118,7 @@ export default function Dilemma() {
                 className="text-base lg:text-lg font-normal mb-3 text-[#888888] leading-tight"
                 style={{ fontFamily: '"DM Sans", sans-serif' }}
               >
-                O Caminho Fácil
+                {t('dilemma.easy.title')}
               </motion.h3>
 
               {/* Subtítulo */}
@@ -138,7 +129,7 @@ export default function Dilemma() {
                 transition={{ duration: 0.4, delay: 0.4 }}
                 className="text-xs font-mono text-[#888888] mb-8 uppercase tracking-wider"
               >
-                Templates e &quot;Gambiarras&quot;
+                {t('dilemma.easy.subtitle')}
               </motion.p>
 
               {/* Lista - Entrada Sequencial */}
@@ -175,7 +166,7 @@ export default function Dilemma() {
                     className="flex items-start gap-3 text-sm text-[#888888]"
                   >
                     <span className="text-xs font-mono text-[#888888]">{'//'}</span>
-                    <span className="leading-relaxed">{item.text}</span>
+                    <span className="leading-relaxed">{t(item.key)}</span>
                   </motion.li>
                 ))}
               </motion.ul>
@@ -283,7 +274,7 @@ export default function Dilemma() {
                   transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
                   className="block"
                 >
-                  A Arquitetura Estratégica
+                  {t('dilemma.strategic.title')}
                 </motion.span>
               </motion.h3>
 
@@ -296,7 +287,7 @@ export default function Dilemma() {
                 className="text-base md:text-lg font-normal text-[#FFFFFF] mb-10 leading-relaxed"
                 style={{ fontFamily: '"DM Sans", sans-serif' }}
               >
-                Feita por um Dev
+                {t('dilemma.strategic.subtitle')}
               </motion.p>
 
               {/* Lista - Ícones com Pulsação, Cascata */}
@@ -346,7 +337,7 @@ export default function Dilemma() {
                     >
                       <CheckIcon className="w-5 h-5" />
                     </motion.div>
-                    <span className="leading-relaxed" style={{ fontFamily: '"DM Sans", sans-serif' }}>{item.text}</span>
+                    <span className="leading-relaxed" style={{ fontFamily: '"DM Sans", sans-serif' }}>{t(item.key)}</span>
                   </motion.li>
                 ))}
               </motion.ul>

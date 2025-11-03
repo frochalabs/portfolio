@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-
-const heroText = "Automação que transforma seu dia a dia em vantagem competitiva."
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Hero() {
+  const { t } = useLanguage()
   const { scrollYProgress } = useScroll()
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  
+  const heroText = t('hero.headline')
   
   // Fade out do Hero baseado no scroll
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0], { clamp: true })
@@ -39,7 +41,7 @@ export default function Hero() {
     }, 1000)
 
     return () => clearTimeout(delay)
-  }, [])
+  }, [heroText])
 
   const techLogos = ['N8N', 'OpenAI', 'WhatsApp', 'Sheets']
 
@@ -99,7 +101,7 @@ export default function Hero() {
             </div>
           </div>
           <span className="text-[#888888] text-xs uppercase tracking-wider font-mono">
-            {'//'} UMA MENSAGEM DE @ROCHALABS
+            {'//'} {t('hero.message')}
           </span>
         </motion.div>
 
@@ -143,7 +145,7 @@ export default function Hero() {
               background: 'linear-gradient(90deg, transparent, rgba(0, 254, 252, 0.2), transparent)',
             }}
           />
-          <span className="relative z-10">Leia o diagnóstico</span>
+          <span className="relative z-10">{t('hero.cta.diagnosis')}</span>
           <motion.svg
             className="relative z-10 cta-arrow-icon w-4 h-4 text-[#00FEFC]"
             fill="none"
