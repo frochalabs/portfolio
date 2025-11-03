@@ -23,10 +23,10 @@ export default function Differential() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-serif mb-4 text-center text-[#FFFFFF] leading-tight"
-          style={{ fontFamily: '"DM Serif Display", serif' }}
+          className="section-function mb-4 text-center leading-tight"
         >
-          {t('differential.title')}
+          {t('differential.title.part1')}{' '}
+          <span>{t('differential.title.part2')}</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -35,7 +35,8 @@ export default function Differential() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm md:text-base text-[#888888] text-center mb-12 font-mono uppercase tracking-wider"
         >
-          {t('differential.subtitle')}
+          {t('differential.subtitle.part1')}{' '}
+          <span>{t('differential.subtitle.part2')}</span>
         </motion.p>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

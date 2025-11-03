@@ -176,8 +176,7 @@ export default function WhoIAm() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif mb-8 text-[#FFFFFF] leading-tight"
-              style={{ fontFamily: '"DM Serif Display", serif' }}
+              className="section-function mb-8 leading-tight"
             >
               {t('about.title')}
             </motion.h2>

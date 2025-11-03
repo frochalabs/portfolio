@@ -56,11 +56,9 @@ export default function Dilemma() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-[#FFFFFF] leading-tight tracking-tight"
-            style={{ fontFamily: '"DM Serif Display", serif' }}
-          >
-            {t('dilemma.title')}
+          <h2 className="section-function mb-4 leading-tight tracking-tight">
+            {t('dilemma.title.part1')}{' '}
+            <span>{t('dilemma.title.part2')}</span>
           </h2>
           <p className="text-xs md:text-sm text-[#888888] max-w-2xl mx-auto leading-relaxed font-mono uppercase tracking-wider">
             {t('dilemma.subtitle')}
@@ -264,8 +262,7 @@ export default function Dilemma() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 text-[#FFFFFF] leading-tight overflow-hidden"
-                style={{ fontFamily: '"DM Serif Display", serif' }}
+                className="section-function mb-4 leading-tight overflow-hidden"
               >
                 <motion.span
                   initial={{ y: '100%' }}

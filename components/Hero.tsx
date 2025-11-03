@@ -97,7 +97,7 @@ export default function Hero() {
         >
           <div className="w-8 h-8 rounded-full bg-[#888888] border border-[#888888] overflow-hidden">
             <div className="w-full h-full bg-[#333333] flex items-center justify-center">
-              <span className="text-[#888888] text-xs">F</span>
+              <span className="text-[#888888] text-xs">R</span>
             </div>
           </div>
           <span className="text-[#888888] text-xs uppercase tracking-wider font-mono">
@@ -108,10 +108,9 @@ export default function Hero() {
         {/* Headline Principal com Efeito Máquina de Escrever */}
         <motion.h1
           style={{ 
-            fontFamily: '"DM Serif Display", serif',
             y: headlineY
           }}
-          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif mb-12 leading-tight text-[#FFFFFF]"
+          className="main-command mb-12 leading-tight"
         >
           {displayedText}
           {isTyping && (

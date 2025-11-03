@@ -61,7 +61,7 @@ export default function Transformation() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-bold text-center mb-8"
+          className="section-function text-center mb-8"
         >
           {t('transformation.title')}
         </motion.h2>

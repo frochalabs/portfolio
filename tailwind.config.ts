@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'display': ['Clash Display', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'monospace'],
+      },
+      fontSize: {
+        'hero': ['clamp(3rem, 8vw, 5.5rem)', '0.9'],
+        'section': ['clamp(2.5rem, 6vw, 4rem)', '1.1'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',

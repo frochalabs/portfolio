@@ -132,7 +132,7 @@ export default function BeforeAfter() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h3 className="text-3xl font-bold text-center mb-12">Como eu faço isso acontecer:</h3>
+          <h3 className="card-variable text-center mb-12">Como eu faço isso acontecer:</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <motion.div
@@ -144,7 +144,7 @@ export default function BeforeAfter() {
                 whileHover={{ y: -10, scale: 1.02 }}
                 className="bg-gradient-to-br from-black/60 via-black/50 to-black/60 border border-gray-800 rounded-xl p-6 hover:border-white/30 transition-all shadow-xl hover:shadow-white/10"
               >
-                <h4 className="text-xl font-bold mb-4">{service.category}</h4>
+                <h4 className="card-variable text-lg mb-4">{service.category}</h4>
                 <ul className="space-y-3">
                   {service.items.map((item, itemIndex) => (
                     <li key={itemIndex} className="text-gray-300 flex items-start">

@@ -113,11 +113,9 @@ export default function Problems() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2
-            style={{ fontFamily: '"DM Serif Display", serif' }}
-            className="text-4xl md:text-5xl lg:text-6xl font-serif mb-4 text-[#FFFFFF] leading-tight"
-          >
-            {t('problems.title')}
+          <h2 className="section-function mb-4 leading-tight">
+            {t('problems.title.part1')}{' '}
+            <span>{t('problems.title.part2')}</span>
           </h2>
           <p className="text-xs text-[#888888] font-mono uppercase tracking-wider">
             {t('problems.subtitle')}
@@ -174,7 +172,7 @@ export default function Problems() {
                 >
                   <IconComponent className="w-8 h-8" />
                 </motion.div>
-                <h3 className="text-base font-semibold mb-3 text-[#FFFFFF]">{t(problem.titleKey)}</h3>
+                <h3 className="card-variable mb-3">{t(problem.titleKey)}</h3>
                 <p className="text-sm text-[#888888] font-normal leading-relaxed flex-grow">{t(problem.descKey)}</p>
               </motion.div>
             )

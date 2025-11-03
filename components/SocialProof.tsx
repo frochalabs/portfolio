@@ -30,8 +30,7 @@ export default function SocialProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-serif text-center mb-12 text-[#FFFFFF] leading-tight"
-          style={{ fontFamily: '"DM Serif Display", serif' }}
+          className="section-function text-center mb-12 leading-tight"
         >
           {t('socialproof.title')}
         </motion.h2>

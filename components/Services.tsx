@@ -51,8 +51,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-serif text-center mb-12 text-[#FFFFFF] leading-tight"
-          style={{ fontFamily: '"DM Serif Display", serif' }}
+          className="section-function text-center mb-12 leading-tight"
         >
           Meu Ecossistema de Soluções
         </motion.h2>

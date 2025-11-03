@@ -6,8 +6,8 @@ import CustomCursor from '@/components/CustomCursor'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'Meu portfólio pessoal',
+  title: 'RochaLabs',
+  description: 'Automação que transforma seu dia a dia em vantagem competitiva',
   icons: {
     icon: '/icon.svg',
   },

@@ -44,8 +44,15 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       'hero.headline': { pt: 'Automação que transforma seu dia a dia em vantagem competitiva.', en: 'Automation that transforms your daily operations into a competitive advantage.' },
       'hero.cta': { pt: 'Leia o diagnóstico', en: 'Read the diagnosis' },
 
+      // Hero with accent
+      'hero.headline.part1': { pt: 'Automação que transforma', en: 'Automation that transforms' },
+      'hero.headline.part2': { pt: 'seu dia a dia em vantagem', en: 'your daily operations into' },
+      'hero.headline.part3': { pt: 'competitiva', en: 'competitive' },
+
       // Problems
       'problems.title': { pt: 'Seu negócio está preso em processos lentos?', en: 'Is your business stuck in slow processes?' },
+      'problems.title.part1': { pt: 'Seu negócio está preso em', en: 'Is your business stuck in' },
+      'problems.title.part2': { pt: 'processos lentos?', en: 'slow processes?' },
       'problems.subtitle': { pt: 'Problemas comuns que consomem seu lucro', en: 'Common problems that consume your profit' },
       'problems.1.title': { pt: 'Equipe apagando incêndios?', en: 'Team fighting fires?' },
       'problems.1.desc': { pt: 'Tarefas repetitivas estão consumindo as horas que sua equipe deveria usar para crescer o negócio.', en: 'Repetitive tasks are consuming the hours your team should use to grow the business.' },
@@ -60,9 +67,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
       // Dilemma
       'dilemma.title': { pt: 'Dois Caminhos, Uma Escolha', en: 'Two Paths, One Choice' },
+      'dilemma.title.part1': { pt: 'Dois Caminhos,', en: 'Two Paths,' },
+      'dilemma.title.part2': { pt: 'Uma Escolha', en: 'One Choice' },
       'dilemma.subtitle': { pt: 'O futuro do seu negócio depende da decisão que você toma agora.', en: 'The future of your business depends on the decision you make now.' },
       'dilemma.easy.title': { pt: 'O Caminho Fácil', en: 'The Easy Path' },
-      'dilemma.easy.subtitle': { pt: 'Templates e &quot;Gambiarras&quot;', en: 'Templates and Quick Fixes' },
+      'dilemma.easy.subtitle': { pt: 'Templates e "Gambiarras"', en: 'Templates and Quick Fixes' },
       'dilemma.easy.1': { pt: 'Genérico: Não se adapta 100% ao seu fluxo.', en: 'Generic: Doesn\'t adapt 100% to your workflow.' },
       'dilemma.easy.2': { pt: 'Quebra fácil: Soluções temporárias.', en: 'Breaks easily: Temporary solutions.' },
       'dilemma.easy.3': { pt: 'Refém da plataforma: Sem controle total.', en: 'Platform hostage: No total control.' },
@@ -74,7 +83,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
       // Differential
       'differential.title': { pt: 'Cada solução é construída do zero, para você.', en: 'Every solution is built from scratch, for you.' },
+      'differential.title.part1': { pt: 'Cada solução é construída', en: 'Every solution is built' },
+      'differential.title.part2': { pt: 'do zero, para você', en: 'from scratch, for you' },
       'differential.subtitle': { pt: 'Eu construo a arquitetura customizada que sua escala exige, linha por linha.', en: 'I build the customized architecture your scale demands, line by line.' },
+      'differential.subtitle.part1': { pt: 'Eu construo a arquitetura customizada que sua escala exige,', en: 'I build the customized architecture your scale demands,' },
+      'differential.subtitle.part2': { pt: 'linha por linha', en: 'line by line' },
       'differential.text': { pt: 'Todo o trabalho é customizado, feito sob medida por um desenvolvedor que domina bots, IA e integração de sistemas. Isso garante soluções limpas, escaláveis e adaptáveis às suas necessidades.', en: 'All work is customized, tailored by a developer who masters bots, AI, and system integration. This ensures clean, scalable solutions adapted to your needs.' },
       'differential.1': { pt: 'Soluções limpas e escaláveis', en: 'Clean and scalable solutions' },
       'differential.2': { pt: '100% adaptável às suas necessidades', en: '100% adaptable to your needs' },
