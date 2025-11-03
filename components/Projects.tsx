@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Project {
   title: string
@@ -106,6 +107,7 @@ const generateCodePreview = (project: Project) => {
 }
 
 export default function Projects() {
+  const { t } = useLanguage()
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [commandInput, setCommandInput] = useState('')
   const [commandHistory, setCommandHistory] = useState<string[]>([])
@@ -211,7 +213,7 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="section-function text-center mb-12 leading-tight"
         >
-          Resultados Reais de Clientes
+{t('projects.title')}
         </motion.h2>
 
         {/* Terminal Container */}

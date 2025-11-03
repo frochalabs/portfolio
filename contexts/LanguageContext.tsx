@@ -119,7 +119,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       'socialproof.testimonial.2': { pt: 'Conseguimos escalar de 10 para 50 clientes sem aumentar a equipe. A automação mudou tudo.', en: 'We managed to scale from 10 to 50 clients without increasing the team. Automation changed everything.' },
 
       // Projects
-      'projects.title': { pt: 'Projetos Reais, Resultados Reais', en: 'Real Projects, Real Results' },
+      'projects.title': { pt: 'Resultados Reais de Clientes', en: 'Real Client Results' },
       'projects.subtitle': { pt: 'Explore cases de sucesso e veja o código', en: 'Explore success cases and see the code' },
       'projects.project.1': { pt: 'Bot de Atendimento WhatsApp', en: 'WhatsApp Customer Service Bot' },
       'projects.project.2': { pt: 'Dashboard de Relatórios Automáticos', en: 'Automated Reports Dashboard' },
