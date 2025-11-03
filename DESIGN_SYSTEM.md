@@ -150,7 +150,7 @@ font-family: "SF Mono", "Menlo", "Consolas", "Monaco", "Courier New", monospace
 
 | Contexto | Valor | Classe | Uso |
 |----------|-------|--------|-----|
-| **Labels técnicos** | `0.05em` (wider) | `tracking-wider` | "// UMA MENSAGEM DE @FROCHADEV" |
+| **Labels técnicos** | `0.05em` (wider) | `tracking-wider` | "// UMA MENSAGEM DE @ROCHALABS" |
 | **Uppercase** | `0.05em` | `uppercase tracking-wider` | Labels em caixa alta |
 
 ---

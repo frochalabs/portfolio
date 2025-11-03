@@ -1,6 +1,6 @@
 # RochaLabs Portfolio
 
-Portfólio profissional desenvolvido para **RochaLabs**, especializada em soluções de automação, integração de sistemas e inteligência artificial.
+Portfólio profissional desenvolvido por **RochaLabs**, especializada em soluções de automação, integração de sistemas e inteligência artificial.
 
 ## 🎯 Sobre
 
