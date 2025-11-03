@@ -1,0 +1,40 @@
+'use client'
+
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    url: 'https://linkedin.com/in/rochalabs',
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/rochalabs',
+  },
+]
+
+export default function Footer() {
+  return (
+    <footer className="px-4 md:px-8 lg:px-16 py-8 bg-[#000000] border-t border-[#888888]">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Esquerda: Copyright */}
+        <p className="text-xs text-[#888888] font-mono">
+          © 2025 @rochalabs. Engenharia de Automação.
+        </p>
+
+        {/* Direita: Links de Redes Sociais */}
+        <div className="flex gap-6 font-mono text-xs uppercase tracking-wider text-[#888888]">
+          {socialLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-interactive transition-colors hover:text-[#00FEFC]"
+            >
+              {'//'} {link.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </footer>
+  )
+}

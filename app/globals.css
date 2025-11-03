@@ -1,0 +1,695 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --gray-medium: #888888; /* Texto secundário, bordas e divisores */
+  --font-display: 'DM Serif Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-code: 'Courier Prime', 'Source Code Pro', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Esconder cursor padrão - apenas se usuário não preferir movimento reduzido */
+@media (prefers-reduced-motion: no-preference) {
+  body.cursor-none {
+    cursor: none;
+  }
+
+  /* Garantir que elementos interativos não tenham cursor padrão */
+  a, button, [role="button"], .cursor-interactive {
+    cursor: none;
+  }
+}
+
+@keyframes bounce-arrow {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(5px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
+}
+
+/* Animação apenas se usuário não preferir movimento reduzido */
+@media (prefers-reduced-motion: no-preference) {
+  .cta-arrow-icon {
+    animation: bounce-arrow 2s infinite ease-out;
+    animation-delay: 1.5s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-arrow-icon {
+    animation: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-align: left;
+    text-wrap: balance;
+  }
+}
+
+/* Fallback para navegadores que não suportam text-wrap: balance */
+@supports not (text-wrap: balance) {
+  .text-balance {
+    text-align: justify;
+  }
+}
+
+/* Background dinâmico do Hero */
+.hero-background {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(17, 17, 17, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(26, 26, 26, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(17, 17, 17, 0.4) 0%, transparent 50%),
+    #000000;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%, 100% 50%, 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 50% 0%;
+  }
+}
+
+/* Grid de Código Sutil */
+.background-grid {
+  background-image: 
+    linear-gradient(rgba(0, 254, 252, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 254, 252, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* Circuit Board Animation */
+.circuit-background {
+  background:
+    linear-gradient(90deg, transparent 95%, rgba(0, 254, 252, 0.1) 100%),
+    linear-gradient(0deg, transparent 95%, rgba(0, 254, 252, 0.1) 100%);
+  background-size: 30px 30px;
+  position: relative;
+}
+
+.circuit-background::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(0, 254, 252, 0.05) 0%, transparent 50%);
+  animation: circuitPulse 4s ease-in-out infinite;
+}
+
+@keyframes circuitPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Data Stream Effect */
+.data-stream {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 254, 252, 0.02) 50%,
+    transparent 100%
+  );
+  animation: dataFlow 3s linear infinite;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+@keyframes dataFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+/* Hero Terminal Simulation */
+.hero-terminal {
+  background: 
+    radial-gradient(ellipse at 80% 50%, rgba(0, 254, 252, 0.1) 0%, transparent 50%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 254, 252, 0.02) 2px, rgba(0, 254, 252, 0.02) 4px);
+  position: relative;
+}
+
+.hero-terminal::before {
+  content: '>>> ';
+  font-family: var(--font-mono);
+  color: #00FEFC;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  opacity: 0.1;
+  font-size: 4rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Code Section - Editor Background */
+.code-section {
+  background: 
+    linear-gradient(90deg, #000000 21px, transparent 1%) center,
+    linear-gradient(#000000 21px, transparent 1%) center,
+    rgba(0, 254, 252, 0.03);
+  background-size: 22px 22px;
+}
+
+/* Contact Section - Form com Estilo DevTools */
+.contact-section {
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 23px,
+      rgba(0, 254, 252, 0.02) 23px,
+      rgba(0, 254, 252, 0.02) 24px
+    );
+}
+
+/* Typewriter para Labels */
+.typewriter-label {
+  font-family: var(--font-mono);
+  overflow: hidden;
+  border-right: 2px solid #00FEFC;
+  animation: typing 3s steps(40), blink-caret 0.8s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00FEFC }
+}
+
+/* Gradient Text com Efeito de Código */
+.code-gradient {
+  background: linear-gradient(45deg, #FFFFFF, #00FEFC, #888888);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+/* Syntax Highlighting para Texto */
+.code-like-text {
+  font-family: var(--font-mono);
+}
+
+.code-key { color: #00FEFC; }
+.code-string { color: #FFFFFF; }
+.code-comment { 
+  color: #888888; 
+  font-style: italic;
+}
+
+/* Hover com Efeito de Seleção */
+.code-hover {
+  font-family: var(--font-mono);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.code-hover:hover {
+  background: rgba(0, 254, 252, 0.1);
+  box-shadow: 0 0 0 1px rgba(0, 254, 252, 0.3);
+}
+
+/* Loading com Dots Animados */
+.loading-dots::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* Status Messages */
+.status-message::before {
+  font-family: var(--font-mono);
+  margin-right: 0.5em;
+}
+
+.status-success::before {
+  content: '[✓]';
+  color: #00FEFC;
+}
+
+.status-error::before {
+  content: '[✗]';
+  color: #ff4444;
+}
+
+/* Classes Utilitárias */
+.font-mono { 
+  font-family: var(--font-mono);
+}
+
+.font-display { 
+  font-family: var(--font-display);
+}
+
+.font-sans { 
+  font-family: var(--font-sans);
+}
+
+.text-code { 
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  letter-spacing: -0.01em;
+}
+
+.text-terminal {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #333333;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+  .mono-optimized {
+    font-optical-sizing: auto;
+    font-feature-settings: "calt" off;
+    text-rendering: optimizeSpeed;
+  }
+
+  /* Terminal Styles for Projects */
+  .terminal-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .terminal-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .terminal-dots .dot-close {
+    background: #ff5f57;
+  }
+
+  .terminal-dots .dot-minimize {
+    background: #ffbd2e;
+  }
+
+  .terminal-dots .dot-expand {
+    background: #28ca42;
+  }
+
+  .terminal-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #888888;
+    margin-left: 20px;
+  }
+
+  .terminal-body {
+    background: #000000;
+    border: 1px solid #333333;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 24px;
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 254, 252, 0.02) 2px,
+      rgba(0, 254, 252, 0.02) 4px
+    );
+    pointer-events: none;
+    animation: scan 8s linear infinite;
+  }
+
+  @keyframes scan {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .project-command {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #888888;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .project-command:hover {
+    background: rgba(0, 254, 252, 0.1);
+    color: #ffffff;
+  }
+
+  .project-command.active {
+    background: rgba(0, 254, 252, 0.15);
+    color: #00fefc;
+  }
+
+  .command-arrow {
+    color: #00fefc;
+    font-size: 0.7rem;
+  }
+
+  .command-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+
+  .prompt-user {
+    font-family: 'JetBrains Mono', monospace;
+    color: #00fefc;
+    font-size: 0.9rem;
+  }
+
+  .prompt-symbol {
+    font-family: 'JetBrains Mono', monospace;
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+
+  .command-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    flex: 1;
+    outline: none;
+    caret-color: #00fefc;
+  }
+
+  .command-input::placeholder {
+    color: #444444;
+  }
+
+  .cursor-blink {
+    color: #00fefc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .command-history-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .project-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .code-preview {
+    background: #111111;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .code-preview-header {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333333;
+  }
+
+  .code-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .code-line {
+    display: flex;
+    gap: 16px;
+  }
+
+  .line-number {
+    color: #888888;
+    min-width: 24px;
+    text-align: right;
+    user-select: none;
+  }
+
+  .code-content {
+    color: #ffffff;
+    flex: 1;
+  }
+
+  .code-keyword {
+    color: #00fefc;
+  }
+
+  .code-comment {
+    color: #666666;
+    font-style: italic;
+  }
+
+  .code-string {
+    color: #ffffff;
+  }
+
+  .demo-preview {
+    background: #111111;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .demo-preview-header {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333333;
+  }
+
+  .demo-placeholder {
+    aspect-ratio: 16/9;
+    background: linear-gradient(45deg, #1a1a1a 25%, #222222 50%, #1a1a1a 75%);
+    background-size: 400% 400%;
+    animation: shimmer 2s ease-in-out infinite;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333333;
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .demo-content {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .demo-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .tech-badge {
+    padding: 4px 8px;
+    background: rgba(0, 254, 252, 0.1);
+    border: 1px solid rgba(0, 254, 252, 0.3);
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #00fefc;
+  }
+
+  .metrics-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .metric-item {
+    background: #000000;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .metric-item.highlight {
+    border-color: #00fefc;
+    background: rgba(0, 254, 252, 0.05);
+  }
+
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: #00fefc;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .terminal-help {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #333333;
+  }
+
+  @media (max-width: 768px) {
+    .project-preview {
+      grid-template-columns: 1fr;
+    }
+
+    .terminal-body {
+      padding: 16px;
+    }
+
+    .metrics-bar {
+      grid-template-columns: 1fr;
+    }
+
+    .code-preview {
+      font-size: 0.65rem;
+    }
+  }
+
+@keyframes moveBackground {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
