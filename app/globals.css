@@ -164,7 +164,7 @@ body {
 /* Hero Terminal Simulation */
 .hero-terminal {
   background: 
-    radial-gradient(ellipse at 80% 50%, rgba(0, 254, 252, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(0, 254, 252, 0.1) 0%, transparent 50%),
     repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 254, 252, 0.02) 2px, rgba(0, 254, 252, 0.02) 4px);
   position: relative;
 }
@@ -175,11 +175,13 @@ body {
   color: #00FEFC;
   position: absolute;
   top: 50%;
-  left: 10%;
-  opacity: 0.1;
-  font-size: 4rem;
+  left: 2%;
+  transform: translateY(-50%);
+  opacity: 0.08;
+  font-size: clamp(2rem, 4vw, 4rem);
   pointer-events: none;
   z-index: 0;
+  white-space: nowrap;
 }
 
 /* Code Section - Editor Background */

@@ -49,7 +49,7 @@ export default function Hero() {
     <motion.section
       id="hero"
       style={{ opacity: heroOpacity, y: heroY }}
-      className="min-h-screen flex flex-col justify-center px-4 md:px-8 lg:px-16 py-20 relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 relative overflow-hidden"
     >
       {/* Background Terminal Simulation */}
       <div 
@@ -57,7 +57,7 @@ export default function Hero() {
       />
 
       {/* Logos das Tecnologias Flutuantes - Topo Direito */}
-      <div className="absolute top-24 right-4 md:right-8 flex items-center gap-2 md:gap-4 flex-wrap justify-end z-10">
+      <div className="absolute top-24 right-6 md:right-12 flex items-center gap-3 md:gap-4 flex-wrap justify-end z-10">
         {techLogos.map((logo, index) => (
           <motion.span
             key={index}
@@ -88,17 +88,15 @@ export default function Hero() {
       </div>
 
       <div className="max-w-4xl mx-auto w-full relative z-10">
-        {/* Foto + Texto de Apoio */}
+        {/* Mensagem @ROCHALABS - Ajuste de posicionamento */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-          className="flex items-center gap-3 mb-8"
+          className="flex items-center gap-3 mb-10 ml-2"
         >
-          <div className="w-8 h-8 rounded-full bg-[#888888] border border-[#888888] overflow-hidden">
-            <div className="w-full h-full bg-[#333333] flex items-center justify-center">
-              <span className="text-[#888888] text-xs">R</span>
-            </div>
+          <div className="w-8 h-8 rounded-full bg-[#333333] border border-[#888888] overflow-hidden flex items-center justify-center">
+            <span className="text-[#FFFFFF] text-xs font-bold">R</span>
           </div>
           <span className="text-[#888888] text-xs uppercase tracking-wider font-mono">
             {'//'} {t('hero.message')}
@@ -110,7 +108,7 @@ export default function Hero() {
           style={{ 
             y: headlineY
           }}
-          className="main-command mb-12 leading-tight"
+          className="main-command mb-12 leading-tight pl-2"
         >
           {displayedText}
           {isTyping && (
@@ -128,7 +126,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="cursor-interactive relative inline-flex items-center gap-2 border border-[#888888] text-[#FFFFFF] rounded-full px-4 py-2 text-sm font-normal transition-all duration-400 overflow-hidden group"
+          className="cursor-interactive relative inline-flex items-center gap-2 border border-[#888888] text-[#FFFFFF] rounded-full px-6 py-3 text-sm font-normal transition-all duration-400 overflow-hidden group ml-2"
           whileHover={{
             borderColor: '#00FEFC',
             boxShadow: '0 0 20px rgba(0, 254, 252, 0.4)',

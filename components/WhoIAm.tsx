@@ -71,19 +71,19 @@ export default function WhoIAm() {
           whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="flex-1 relative w-full lg:w-1/2 h-[50vh] lg:h-auto bg-transparent flex flex-col items-center justify-center px-8 py-16"
+          className="flex-1 relative w-full lg:w-1/2 min-h-[50vh] md:min-h-[60vh] lg:h-auto bg-transparent flex flex-col items-center justify-center px-4 md:px-8 py-12 md:py-16"
         >
           {/* Photo Container */}
-          <div className="relative w-full max-w-md">
+          <div className="relative w-full max-w-md mx-auto">
             {/* Photo Grid */}
-            <div className="relative w-full h-[60vh] lg:h-[70vh] rounded-lg overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-transparent">
+            <div className="relative w-full aspect-[3/4] md:aspect-[4/5] lg:h-[70vh] max-h-[600px] rounded-lg overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-transparent" style={{ clipPath: 'inset(0 0 10px 0)' }}>
               {photoTriggers.map((trigger) => (
                 <motion.div
                   key={trigger.id}
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{ 
                     opacity: activePhoto === trigger.id ? 1 : 0,
-                    scale: activePhoto === trigger.id ? 1 : 1.1
+                    scale: activePhoto === trigger.id ? 1.1 : 1.2
                   }}
                   transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="absolute inset-0"
@@ -92,9 +92,10 @@ export default function WhoIAm() {
                     src={`/${trigger.id}`}
                     alt={`Fabiano Rocha - ${t(trigger.labelKey)}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
+                    style={{ objectPosition: 'center bottom' }}
                     priority={trigger.id === 'perfil_1.png'}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
                   />
                 </motion.div>
               ))}
