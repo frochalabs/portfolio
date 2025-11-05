@@ -34,3 +34,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# markdown files (except design system)
+*.md
+!DESIGN_SYSTEM.md
+

@@ -15,7 +15,6 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
@@ -80,7 +79,7 @@ export default function Contact() {
             >
               <span className="text-[#000000] text-2xl font-bold">✓</span>
             </motion.div>
-            <h3 className="text-xl font-semibold mb-4 text-[#FFFFFF] status-message status-success">
+            <h3 className="text-xl font-semibold mb-4 text-white/90 status-message status-success">
               {t('contact.success.title')}
             </h3>
             <p className="text-sm text-[#888888] font-mono">

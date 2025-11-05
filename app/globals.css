@@ -30,8 +30,40 @@ body {
   overflow-x: hidden;
 }
 
-/* Esconder cursor padrão - apenas se usuário não preferir movimento reduzido */
-@media (prefers-reduced-motion: no-preference) {
+/* Custom Scrollbar - Estilo Técnico */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  border-left: 1px solid #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 0;
+  border: 1px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00FEFC;
+  border: 1px solid #00FEFC;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333333 #000000;
+}
+
+*::-webkit-scrollbar-corner {
+  background: #000000;
+}
+
+/* Esconder cursor padrão - apenas se usuário não preferir movimento reduzido e não for mobile */
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) and (hover: hover) {
   body.cursor-none {
     cursor: none;
   }
@@ -701,7 +733,7 @@ body {
   font-family: 'Clash Display', sans-serif;
   font-weight: 400;
   font-size: clamp(2.5rem, 6vw, 4rem);
-  color: #FFFFFF;
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.1;
 }
 
@@ -709,7 +741,7 @@ body {
   font-family: 'Clash Display', sans-serif;
   font-weight: 400;
   font-size: clamp(2rem, 4vw, 3rem);
-  color: #FFFFFF;
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.1;
 }
 
@@ -717,6 +749,6 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
   font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: #FFFFFF;
+  color: rgba(255, 255, 255, 0.95);
 }
 

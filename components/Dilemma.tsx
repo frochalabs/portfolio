@@ -281,7 +281,7 @@ export default function Dilemma() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.7 }}
-                className="text-base md:text-lg font-normal text-[#FFFFFF] mb-10 leading-relaxed"
+                className="text-base md:text-lg font-normal text-white/90 mb-10 leading-relaxed"
                 style={{ fontFamily: '"DM Sans", sans-serif' }}
               >
                 {t('dilemma.strategic.subtitle')}

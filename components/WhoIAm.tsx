@@ -202,10 +202,10 @@ export default function WhoIAm() {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="space-y-6 mb-12"
             >
-              <p className="text-sm md:text-base text-[#FFFFFF] font-normal leading-relaxed">
+              <p className="text-sm md:text-base text-white/90 font-normal leading-relaxed">
                 {t('about.text.1')}
               </p>
-              <p className="text-sm md:text-base text-[#FFFFFF] font-normal leading-relaxed">
+              <p className="text-sm md:text-base text-white/90 font-normal leading-relaxed">
                 {t('about.text.2')}
               </p>
             </motion.div>

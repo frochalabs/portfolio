@@ -3,6 +3,7 @@ import './globals.css'
 import SmoothScroll from '@/components/SmoothScroll'
 import PageInit from '@/components/PageInit'
 import CustomCursor from '@/components/CustomCursor'
+import CursorManager from '@/components/CursorManager'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
@@ -20,8 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="cursor-none">
+      <body>
         <LanguageProvider>
+          <CursorManager />
           <PageInit />
           <SmoothScroll />
           <CustomCursor />
