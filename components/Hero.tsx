@@ -29,10 +29,10 @@ export default function Hero() {
 
   // Frases para o prompt dinâmico
   const phrases = useMemo(() => [
- "AI agents that reason about business processes.",
-"Automation pipelines executed by intelligent triggers.",
-"End-to-end automation with AI oversight."
-  ], [])
+    t('hero.headline.dynamic.1'),
+    t('hero.headline.dynamic.2'),
+    t('hero.headline.dynamic.3')
+  ], [t])
 
   // Máquina de estados para animação dinâmica
   useEffect(() => {

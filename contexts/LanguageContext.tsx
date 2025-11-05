@@ -143,6 +143,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
       // Hero secondary
       'hero.cta.diagnosis': { pt: 'Leia o diagnóstico', en: 'Read the diagnosis' },
+      
+      // Hero dynamic headlines
+      'hero.headline.dynamic.1': { pt: 'Agentes de IA que raciocinam sobre processos de negócio.', en: 'AI agents that reason about business processes.' },
+      'hero.headline.dynamic.2': { pt: 'Pipelines de automação executados por gatilhos inteligentes.', en: 'Automation pipelines executed by intelligent triggers.' },
+      'hero.headline.dynamic.3': { pt: 'Automação end-to-end com supervisão de IA.', en: 'End-to-end automation with AI oversight.' },
     }
 
     return translations[key]?.[language] || key
