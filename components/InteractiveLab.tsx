@@ -488,165 +488,188 @@ const PhysicsSandbox = () => {
         </motion.div>
       ))}
 
-      {objects.map((obj) => {
-        const x = useMotionValue(0)
-        const y = useMotionValue(0)
-        const dragStartPos = useRef<{ x: number; y: number } | null>(null)
-        
-        return (
-          <motion.div
-            key={obj.id}
-            ref={(el) => {
-              objectRefs.current[obj.id] = el
-            }}
-            className={`absolute ${obj.size} cursor-grab active:cursor-grabbing`}
-            style={{
-              left: `${obj.x}%`,
-              top: `${obj.y}%`,
-              x,
-              y,
-              rotate: obj.rotation,
-            }}
-            drag
-            dragConstraints={constraintsRef}
-            dragElastic={0}
-            dragMomentum={false}
-            onDragStart={() => {
-              // Marcar como sendo arrastado e salvar posição inicial
-              setObjects(prev => prev.map(o => 
-                o.id === obj.id 
-                  ? { ...o, isDragging: true, vx: 0, vy: 0, angularVelocity: 0 }
-                  : o
-              ))
-              
-              if (constraintsRef.current && objectRefs.current[obj.id]) {
-                const containerRect = constraintsRef.current.getBoundingClientRect()
-                const elementRect = objectRefs.current[obj.id].getBoundingClientRect()
-                dragStartPos.current = {
-                  x: (elementRect.left - containerRect.left) / containerRect.width * 100,
-                  y: (elementRect.top - containerRect.top) / containerRect.height * 100
-                }
-              }
-            }}
-            onDrag={(event, info) => {
-              // Atualizar posição durante o drag
-              if (constraintsRef.current) {
-                const containerRect = constraintsRef.current.getBoundingClientRect()
-                const newX = ((info.point.x - containerRect.left) / containerRect.width) * 100
-                const newY = ((info.point.y - containerRect.top) / containerRect.height) * 100
-                
-                setObjects(prev => prev.map(o => 
-                  o.id === obj.id ? { ...o, x: newX, y: newY } : o
-                ))
-              }
-            }}
-            onDragEnd={(event, info) => {
-              // Aplicar velocidade baseada no gesto de drag
-              // Escalar velocidade para valores físicos apropriados
-              const velocityX = info.velocity.x * 0.015
-              const velocityY = info.velocity.y * 0.015
-              
-              // Calcular velocidade angular baseada na velocidade linear
-              const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY)
-              const angularVelocity = speed * 0.08
-              
-              setObjects(prev => prev.map(o => 
-                o.id === obj.id 
-                  ? { 
-                      ...o, 
-                      vx: velocityX,
-                      vy: velocityY,
-                      isDragging: false,
-                      angularVelocity: angularVelocity
-                    }
-                  : o
-              ))
-              
-              x.set(0)
-              y.set(0)
-            }}
-            whileHover={{ 
-              scale: 1.1,
-              borderColor: '#00FEFC',
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-          {obj.type === 'circle' && (
-            <div className="w-full h-full border border-[#888888] rounded-full bg-[#111111] flex flex-col items-center justify-center p-2 group">
-              <div className="w-2 h-2 bg-[#00FEFC] rounded-full mb-1" />
-              <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {obj.phrase}
-              </span>
-            </div>
-          )}
-          {obj.type === 'square' && (
-            <div className="w-full h-full border border-[#888888] bg-[#111111] flex flex-col items-center justify-center p-2 group">
-              <div className="w-3 h-3 border border-[#00FEFC] mb-1" />
-              <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {obj.phrase}
-              </span>
-            </div>
-          )}
-          {obj.type === 'triangle' && (
-            <div className="w-full h-full relative group">
-              <svg className="w-full h-full" viewBox="0 0 100 100">
-                <polygon
-                  points="50,10 90,85 10,85"
-                  fill="#111111"
-                  stroke="#888888"
-                  strokeWidth="1"
-                />
-                <circle cx="50" cy="55" r="2" fill="#00FEFC" />
-              </svg>
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center whitespace-nowrap">
-                  {obj.phrase}
-                </span>
-              </div>
-            </div>
-          )}
-          {obj.type === 'hexagon' && (
-            <div className="w-full h-full relative group">
-              <svg className="w-full h-full" viewBox="0 0 100 100">
-                <polygon
-                  points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-                  fill="#111111"
-                  stroke="#888888"
-                  strokeWidth="1"
-                />
-                <circle cx="50" cy="50" r="2" fill="#00FEFC" />
-              </svg>
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center whitespace-nowrap">
-                  {obj.phrase}
-                </span>
-              </div>
-            </div>
-          )}
-          {obj.type === 'tech' && (
-            <div className="w-full h-full border border-[#888888] bg-[#111111] flex flex-col items-center justify-center p-2 group relative">
-              <div className="relative w-10 h-10 md:w-12 md:h-12 mb-1">
-                <Image
-                  src={obj.icon}
-                  alt={obj.tech}
-                  fill
-                  className="object-contain transition-all duration-300"
-                  style={{
-                    filter: 'brightness(0) saturate(100%) invert(100%)',
-                  }}
-                />
-              </div>
-              <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {obj.phrase}
-              </span>
-              <div className="absolute inset-0 border border-[#00FEFC] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 bg-[#00FEFC]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          )}
-        </motion.div>
-        )
-      })}
+      {objects.map((obj) => (
+        <PhysicsObjectComponent
+          key={obj.id}
+          obj={obj}
+          constraintsRef={constraintsRef}
+          objectRefs={objectRefs}
+          setObjects={setObjects}
+        />
+      ))}
     </div>
+  )
+}
+
+// Componente separado para cada objeto físico (permite uso de hooks)
+function PhysicsObjectComponent({
+  obj,
+  constraintsRef,
+  objectRefs,
+  setObjects,
+}: {
+  obj: PhysicsObject
+  constraintsRef: React.RefObject<HTMLDivElement>
+  objectRefs: React.MutableRefObject<Record<number, HTMLDivElement | null>>
+  setObjects: React.Dispatch<React.SetStateAction<PhysicsObject[]>>
+}) {
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const dragStartPos = useRef<{ x: number; y: number } | null>(null)
+  
+  return (
+    <motion.div
+      ref={(el) => {
+        objectRefs.current[obj.id] = el
+      }}
+      className={`absolute ${obj.size} cursor-grab active:cursor-grabbing`}
+      style={{
+        left: `${obj.x}%`,
+        top: `${obj.y}%`,
+        x,
+        y,
+        rotate: obj.rotation,
+      }}
+      drag
+      dragConstraints={constraintsRef}
+      dragElastic={0}
+      dragMomentum={false}
+      onDragStart={() => {
+        // Marcar como sendo arrastado e salvar posição inicial
+        setObjects(prev => prev.map(o => 
+          o.id === obj.id 
+            ? { ...o, isDragging: true, vx: 0, vy: 0, angularVelocity: 0 }
+            : o
+        ))
+        
+        if (constraintsRef.current && objectRefs.current[obj.id]) {
+          const containerRect = constraintsRef.current.getBoundingClientRect()
+          const element = objectRefs.current[obj.id]
+          if (element) {
+            const elementRect = element.getBoundingClientRect()
+            dragStartPos.current = {
+              x: (elementRect.left - containerRect.left) / containerRect.width * 100,
+              y: (elementRect.top - containerRect.top) / containerRect.height * 100
+            }
+          }
+        }
+      }}
+      onDrag={(event, info) => {
+        // Atualizar posição durante o drag
+        if (constraintsRef.current) {
+          const containerRect = constraintsRef.current.getBoundingClientRect()
+          const newX = ((info.point.x - containerRect.left) / containerRect.width) * 100
+          const newY = ((info.point.y - containerRect.top) / containerRect.height) * 100
+          
+          setObjects(prev => prev.map(o => 
+            o.id === obj.id ? { ...o, x: newX, y: newY } : o
+          ))
+        }
+      }}
+      onDragEnd={(event, info) => {
+        // Aplicar velocidade baseada no gesto de drag
+        // Escalar velocidade para valores físicos apropriados
+        const velocityX = info.velocity.x * 0.015
+        const velocityY = info.velocity.y * 0.015
+        
+        // Calcular velocidade angular baseada na velocidade linear
+        const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY)
+        const angularVelocity = speed * 0.08
+        
+        setObjects(prev => prev.map(o => 
+          o.id === obj.id 
+            ? { 
+                ...o, 
+                vx: velocityX,
+                vy: velocityY,
+                isDragging: false,
+                angularVelocity: angularVelocity
+              }
+            : o
+        ))
+        
+        x.set(0)
+        y.set(0)
+      }}
+      whileHover={{ 
+        scale: 1.1,
+        borderColor: '#00FEFC',
+      }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {obj.type === 'circle' && (
+        <div className="w-full h-full border border-[#888888] rounded-full bg-[#111111] flex flex-col items-center justify-center p-2 group">
+          <div className="w-2 h-2 bg-[#00FEFC] rounded-full mb-1" />
+          <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {obj.phrase}
+          </span>
+        </div>
+      )}
+      {obj.type === 'square' && (
+        <div className="w-full h-full border border-[#888888] bg-[#111111] flex flex-col items-center justify-center p-2 group">
+          <div className="w-3 h-3 border border-[#00FEFC] mb-1" />
+          <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {obj.phrase}
+          </span>
+        </div>
+      )}
+      {obj.type === 'triangle' && (
+        <div className="w-full h-full relative group">
+          <svg className="w-full h-full" viewBox="0 0 100 100">
+            <polygon
+              points="50,10 90,85 10,85"
+              fill="#111111"
+              stroke="#888888"
+              strokeWidth="1"
+            />
+            <circle cx="50" cy="55" r="2" fill="#00FEFC" />
+          </svg>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center whitespace-nowrap">
+              {obj.phrase}
+            </span>
+          </div>
+        </div>
+      )}
+      {obj.type === 'hexagon' && (
+        <div className="w-full h-full relative group">
+          <svg className="w-full h-full" viewBox="0 0 100 100">
+            <polygon
+              points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
+              fill="#111111"
+              stroke="#888888"
+              strokeWidth="1"
+            />
+            <circle cx="50" cy="50" r="2" fill="#00FEFC" />
+          </svg>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center whitespace-nowrap">
+              {obj.phrase}
+            </span>
+          </div>
+        </div>
+      )}
+      {obj.type === 'tech' && (
+        <div className="w-full h-full border border-[#888888] bg-[#111111] flex flex-col items-center justify-center p-2 group relative">
+          <div className="relative w-10 h-10 md:w-12 md:h-12 mb-1">
+            <Image
+              src={obj.icon!}
+              alt={obj.tech!}
+              fill
+              className="object-contain transition-all duration-300"
+              style={{
+                filter: 'brightness(0) saturate(100%) invert(100%)',
+              }}
+            />
+          </div>
+          <span className="text-[6px] md:text-[7px] text-[#888888] font-mono text-center leading-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {obj.phrase}
+          </span>
+          <div className="absolute inset-0 border border-[#00FEFC] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-[#00FEFC]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+      )}
+    </motion.div>
   )
 }
 

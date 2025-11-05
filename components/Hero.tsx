@@ -1,16 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
+
+type AnimationState = 
+  | 'IDLE'
+  | 'TYPING_1'
+  | 'DELETING_1'
+  | 'TYPING_2'
+  | 'DELETING_2'
+  | 'TYPING_3'
+  | 'COMPLETE'
 
 export default function Hero() {
   const { t } = useLanguage()
   const { scrollYProgress } = useScroll()
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  
-  const heroText = t('hero.headline')
+  const [animationState, setAnimationState] = useState<AnimationState>('IDLE')
   
   // Fade out do Hero baseado no scroll
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0], { clamp: true })
@@ -19,29 +27,127 @@ export default function Hero() {
   // Parallax para a headline (move mais devagar que o resto)
   const headlineY = useTransform(scrollYProgress, [0, 0.3], [0, -30], { clamp: true })
 
-  // Efeito máquina de escrever
+  // Frases para o prompt dinâmico
+  const phrases = useMemo(() => [
+ "AI agents that reason about business processes.",
+"Automation pipelines executed by intelligent triggers.",
+"End-to-end automation with AI oversight."
+  ], [])
+
+  // Máquina de estados para animação dinâmica
   useEffect(() => {
-    const delay = setTimeout(() => {
-      setIsTyping(true)
-      let currentIndex = 0
-      const charactersPerSecond = 30
-      const delayMs = 1000 / charactersPerSecond
+    if (animationState === 'COMPLETE') return
+    
+    let typingInterval: NodeJS.Timeout | null = null
+    let delayTimeout: NodeJS.Timeout | null = null
+    let stateTimeout: NodeJS.Timeout | null = null
+    let currentIndex = 0
+    
+    const typeSpeed = 30 // caracteres por segundo (digitação)
+    const deleteSpeed = 100 // caracteres por segundo (apagamento - muito mais rápido)
+    
+    // Delay inicial - iniciar animação
+    if (animationState === 'IDLE') {
+      delayTimeout = setTimeout(() => {
+        setAnimationState('TYPING_1')
+      }, 1000)
       
-      const typingInterval = setInterval(() => {
-        if (currentIndex < heroText.length) {
-          setDisplayedText(heroText.slice(0, currentIndex + 1))
-          currentIndex++
-        } else {
-          setIsTyping(false)
-          clearInterval(typingInterval)
-        }
-      }, delayMs)
+      return () => {
+        if (delayTimeout) clearTimeout(delayTimeout)
+      }
+    }
+    
+    // Executar animações baseadas no estado
+    switch (animationState) {
+      case 'TYPING_1': {
+        currentIndex = 0
+        setIsTyping(true)
+        typingInterval = setInterval(() => {
+          if (currentIndex < phrases[0].length) {
+            setDisplayedText(phrases[0].slice(0, currentIndex + 1))
+            currentIndex++
+          } else {
+            if (typingInterval) clearInterval(typingInterval)
+            setIsTyping(false)
+            stateTimeout = setTimeout(() => setAnimationState('DELETING_1'), 1500)
+          }
+        }, 1000 / typeSpeed)
+        break
+      }
+        
+      case 'DELETING_1': {
+        currentIndex = phrases[0].length
+        setIsTyping(true)
+        typingInterval = setInterval(() => {
+          if (currentIndex > 0) {
+            setDisplayedText(phrases[0].slice(0, currentIndex - 1))
+            currentIndex--
+          } else {
+            if (typingInterval) clearInterval(typingInterval)
+            setDisplayedText('')
+            setIsTyping(false)
+            stateTimeout = setTimeout(() => setAnimationState('TYPING_2'), 500)
+          }
+        }, 1000 / deleteSpeed)
+        break
+      }
+        
+      case 'TYPING_2': {
+        currentIndex = 0
+        setIsTyping(true)
+        typingInterval = setInterval(() => {
+          if (currentIndex < phrases[1].length) {
+            setDisplayedText(phrases[1].slice(0, currentIndex + 1))
+            currentIndex++
+          } else {
+            if (typingInterval) clearInterval(typingInterval)
+            setIsTyping(false)
+            stateTimeout = setTimeout(() => setAnimationState('DELETING_2'), 1500)
+          }
+        }, 1000 / typeSpeed)
+        break
+      }
+        
+      case 'DELETING_2': {
+        currentIndex = phrases[1].length
+        setIsTyping(true)
+        typingInterval = setInterval(() => {
+          if (currentIndex > 0) {
+            setDisplayedText(phrases[1].slice(0, currentIndex - 1))
+            currentIndex--
+          } else {
+            if (typingInterval) clearInterval(typingInterval)
+            setDisplayedText('')
+            setIsTyping(false)
+            stateTimeout = setTimeout(() => setAnimationState('TYPING_3'), 500)
+          }
+        }, 1000 / deleteSpeed)
+        break
+      }
+        
+      case 'TYPING_3': {
+        currentIndex = 0
+        setIsTyping(true)
+        typingInterval = setInterval(() => {
+          if (currentIndex < phrases[2].length) {
+            setDisplayedText(phrases[2].slice(0, currentIndex + 1))
+            currentIndex++
+          } else {
+            if (typingInterval) clearInterval(typingInterval)
+            setIsTyping(false)
+            setAnimationState('COMPLETE')
+          }
+        }, 1000 / typeSpeed)
+        break
+      }
+    }
 
-      return () => clearInterval(typingInterval)
-    }, 1000)
-
-    return () => clearTimeout(delay)
-  }, [heroText])
+    return () => {
+      if (typingInterval) clearInterval(typingInterval)
+      if (delayTimeout) clearTimeout(delayTimeout)
+      if (stateTimeout) clearTimeout(stateTimeout)
+    }
+  }, [animationState, phrases])
 
   const techLogos = ['N8N', 'OpenAI', 'WhatsApp', 'Sheets']
 
@@ -56,35 +162,63 @@ export default function Hero() {
         className="absolute inset-0 z-0 hero-terminal"
       />
 
-      {/* Logos das Tecnologias Flutuantes - Topo Direito */}
-      <div className="absolute top-24 right-6 md:right-12 flex items-center gap-3 md:gap-4 flex-wrap justify-end z-10">
-        {techLogos.map((logo, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: 0.7,
-              y: [0, -8, 0],
+      {/* Data Particles Effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-px h-20 bg-cyan-500/10"
+            style={{
+              left: `${15 + i * 12}%`,
+              top: '-20%',
             }}
-            transition={{ 
-              opacity: { duration: 0.6, delay: 0.1 + index * 0.1 },
-              y: {
-                duration: 3,
-                repeat: Infinity,
-                delay: index * 0.5,
-                ease: 'easeInOut',
-              },
+            animate={{
+              y: ['0%', '120%'],
+              opacity: [0, 0.3, 0],
             }}
-            className="text-[#888888] text-xs font-mono cursor-interactive transition-all duration-300 code-hover"
-            whileHover={{
-              opacity: 1,
-              scale: 1.1,
-              filter: 'drop-shadow(0 0 8px rgba(0, 254, 252, 0.6))',
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.8,
+              ease: "linear",
             }}
-          >
-            {logo}
-          </motion.span>
+          />
         ))}
+      </div>
+
+      {/* Logos das Tecnologias Flutuantes - Topo Direito */}
+      <div className="absolute top-24 right-6 md:right-12 z-10">
+        <div className="bg-black/40 backdrop-blur-sm border border-[#888888]/30 rounded-lg p-3">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap justify-end">
+            {techLogos.map((logo, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: 0.7,
+                  y: [0, -8, 0],
+                }}
+                transition={{ 
+                  opacity: { duration: 0.6, delay: 0.1 + index * 0.1 },
+                  y: {
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: index * 0.5,
+                    ease: 'easeInOut',
+                  },
+                }}
+                className="text-[#888888] text-xs font-mono cursor-interactive transition-all duration-300 code-hover"
+                whileHover={{
+                  opacity: 1,
+                  scale: 1.1,
+                  filter: 'drop-shadow(0 0 8px rgba(0, 254, 252, 0.6))',
+                }}
+              >
+                {logo}
+              </motion.span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto w-full relative z-10">
@@ -95,8 +229,14 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
           className="flex items-center gap-3 mb-10 ml-2"
         >
-          <div className="w-8 h-8 rounded-full bg-[#333333] border border-[#888888] overflow-hidden flex items-center justify-center">
-            <span className="text-[#FFFFFF] text-xs font-bold">R</span>
+          <div className="relative">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-300 overflow-hidden flex items-center justify-center">
+              <span className="text-black text-xs font-bold">R</span>
+            </div>
+            {/* Status indicator */}
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-black">
+              <div className="w-full h-full bg-green-400 rounded-full animate-pulse" />
+            </div>
           </div>
           <span className="text-[#888888] text-xs uppercase tracking-wider font-mono">
             {'//'} {t('hero.message')}
@@ -120,27 +260,25 @@ export default function Hero() {
           )}
         </motion.h1>
 
-        {/* CTA Ghost Button com Glow Interativo */}
+        {/* CTA Button com Gradiente e Glow Interativo */}
         <motion.a
           href="#problems"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="cursor-interactive relative inline-flex items-center gap-2 border border-[#888888] text-[#FFFFFF] rounded-full px-6 py-3 text-sm font-normal transition-all duration-400 overflow-hidden group ml-2"
+          className="cursor-interactive relative inline-flex items-center gap-3 bg-black/40 backdrop-blur-sm border border-[#888888] text-[#FFFFFF] rounded-full px-6 py-3 text-sm font-semibold transition-all duration-400 overflow-hidden group ml-2"
           whileHover={{
             borderColor: '#00FEFC',
-            boxShadow: '0 0 20px rgba(0, 254, 252, 0.4)',
+            boxShadow: '0 0 30px rgba(0, 254, 252, 0.3)',
+            scale: 1.02,
           }}
         >
-          {/* Efeito de brilho deslizante */}
+          {/* Gradiente de fundo no hover */}
           <motion.div
-            className="absolute inset-0"
+            className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent"
             initial={{ x: '-100%' }}
             whileHover={{ x: '100%' }}
-            transition={{ duration: 0.5 }}
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(0, 254, 252, 0.2), transparent)',
-            }}
+            transition={{ duration: 0.6 }}
           />
           <span className="relative z-10">{t('hero.cta.diagnosis')}</span>
           <motion.svg

@@ -196,8 +196,18 @@ body {
 /* Hero Terminal Simulation */
 .hero-terminal {
   background: 
-    radial-gradient(ellipse at 20% 50%, rgba(0, 254, 252, 0.1) 0%, transparent 50%),
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 254, 252, 0.02) 2px, rgba(0, 254, 252, 0.02) 4px);
+    /* Gradiente principal mais pronunciado */
+    radial-gradient(ellipse at 15% 50%, rgba(0, 254, 252, 0.15) 0%, transparent 60%),
+    /* Linhas de código mais definidas */
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 254, 252, 0.03) 1px, rgba(0, 254, 252, 0.03) 2px),
+    /* Grid sutil para estrutura */
+    linear-gradient(rgba(0, 254, 252, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 254, 252, 0.02) 1px, transparent 1px);
+  background-size: 
+    100% 100%,
+    100% 100%,
+    40px 40px,
+    40px 40px;
   position: relative;
 }
 
@@ -732,9 +742,14 @@ body {
 .main-command {
   font-family: 'Clash Display', sans-serif;
   font-weight: 400;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  color: #FFFFFF;
   line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 
+    0 0 1px rgba(0, 254, 252, 0.3),
+    0 0 2px rgba(0, 254, 252, 0.2),
+    0 0 4px rgba(0, 254, 252, 0.1);
 }
 
 .section-function {

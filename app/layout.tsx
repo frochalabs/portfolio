@@ -8,7 +8,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export const metadata: Metadata = {
   title: 'RochaLabs',
-  description: 'Automação que transforma seu dia a dia em vantagem competitiva',
+  description: 'Automation that transforms your daily operations into a competitive advantage',
   icons: {
     icon: '/icon.svg',
   },
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body>
         <LanguageProvider>
           <CursorManager />
